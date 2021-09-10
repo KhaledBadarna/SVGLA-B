@@ -1,0 +1,35 @@
+{
+  "name": "SVGLA-BE",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cloudinary": "^1.26.2",
+    "cloudinary-core": "^2.11.4",
+    "cloudinary-react": "^1.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.3",
+    "nodemailer": "^6.6.3",
+    "nodemon": "^2.0.9"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KhaledBadarna/svglabBackend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KhaledBadarna/svglabBackend/issues"
+  },
+  "homepage": "https://github.com/KhaledBadarna/svglabBackend#readme"
+}
