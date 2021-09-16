@@ -3,11 +3,16 @@ import express from "express";
 const router = express.Router();
 
 export const getImages = async (req, res) => {
-  const { resources } = await cloudinary.v2.search.expression("folder:SVGLA").sort_by("public_id", "desc").max_results(42).execute();
-  const publicIds = resources.map((file) => file.public_id);
-  const imgUrl = resources.map((file) => file.secure_url);
+  try {
+    const { resources } = await cloudinary.v2.search.expression("folder:SVGLA").sort_by("public_id", "desc").max_results(42).execute();
+    const publicIds = resources.map((file) => file.public_id);
+    const imgUrl = resources.map((file) => file.secure_url);
 
-  res.send({ publicIds: publicIds, imgUrl: imgUrl });
+    res.send({ publicIds: publicIds, imgUrl: imgUrl });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
 };
 
 export const getImage = async (req, res) => {
@@ -32,11 +37,12 @@ export const getImage = async (req, res) => {
 
 export const getImagesBySearch = async (req, res) => {
   const tags = req.params.tag;
+  const splitted = tags.split(",");
+  const searchTags = splitted.join(" || ");
 
   try {
-    console.log(tags);
     const resources = cloudinary.v2.search
-      .expression("resource_type:image AND tags=" + tags)
+      .expression("resource_type:image AND tags=" + searchTags)
       .execute()
       .then((result) => {
         let publicIds = result.resources.map((file) => file.public_id);
@@ -45,6 +51,7 @@ export const getImagesBySearch = async (req, res) => {
           publicIds.push(0);
           res.send(publicIds);
         } else {
+          // console.log("hhh");
           res.send(publicIds);
         }
       });
