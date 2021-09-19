@@ -16,7 +16,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.get("/", (req, res) => {
   res.send("hello to Svgla API");
 });
-
+const host = "0.0.0.0";
 app.use("/images/", imageRoutes);
 app.use("/user", userRoutes);
 app.use("/purchased", purchasedRoutes);
@@ -26,7 +26,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
+  .then(() => app.listen(PORT, host, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
 
   .catch((error) => console.log("error", error.message));
 mongoose.set("useFindAndModify", false);
