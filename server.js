@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import imageRoutes from "./routes/images.js";
 import userRoutes from "./routes/users.js";
 import purchasedRoutes from "./routes/purchased.js";
+import { PORT } from "./config.js";
 
 const app = express();
 app.use(cors());
@@ -16,17 +17,16 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.get("/", (req, res) => {
   res.send("hello to Svgla API");
 });
-const host = "0.0.0.0";
 app.use("/images/", imageRoutes);
 app.use("/user", userRoutes);
 app.use("/purchased", purchasedRoutes);
-const PORT = process.env.PORT || 4000;
+// const PORT = process.env.PORT || 4000;
 mongoose
   .connect(process.env.CONNECTION_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => app.listen(PORT, host, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
+  .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
 
   .catch((error) => console.log("error", error.message));
 mongoose.set("useFindAndModify", false);
