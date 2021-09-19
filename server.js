@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import imageRoutes from "./routes/images.js";
 import userRoutes from "./routes/users.js";
 import purchasedRoutes from "./routes/purchased.js";
-import { PORT } from "./config.js";
+import { PORT, CONNECTION_URL } from "./config.js";
 
 const app = express();
 app.use(cors());
@@ -22,7 +22,7 @@ app.use("/user", userRoutes);
 app.use("/purchased", purchasedRoutes);
 // const PORT = process.env.PORT || 4000;
 mongoose
-  .connect(process.env.CONNECTION_URL, {
+  .connect(CONNECTION_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

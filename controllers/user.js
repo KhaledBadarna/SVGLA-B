@@ -1,5 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+// import { SECRET } from "../config";
+
 import User from "../models/user.js";
 import nodemailer from "nodemailer";
 
@@ -10,7 +12,7 @@ let mailTransporter = nodemailer.createTransport({
     pass: "sltehlwiiykrehnk",
   },
 });
-
+const SECRET = "assds,fm";
 export const signin = async (req, res) => {
   const { email, password } = req.body;
 
@@ -49,7 +51,7 @@ export const signup = async (req, res) => {
       if (password !== confirmPassword) return res.status(400).json({ message: "Passwords Don't match" });
       const hashedPassword = await bcrypt.hash(password, 12);
       const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}`, isVarified: false });
-      const token = jwt.sign({ email: result.email, id: result._id }, process.env.secret, { expiresIn: "1h" });
+      const token = jwt.sign({ email: result.email, id: result._id }, SECRET, { expiresIn: "1h" });
 
       let mailDetails = {
         from: "badarnakhaled@gmail.com",
