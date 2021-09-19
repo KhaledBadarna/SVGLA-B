@@ -37,8 +37,8 @@ export const getImage = async (req, res) => {
 
 export const getImagesBySearch = async (req, res) => {
   const tags = req.params.tag;
-  const splitted = tags.split(",");
-  const searchTags = splitted.join(" || ");
+  const splitted = tags?.split(",");
+  const searchTags = splitted?.join(" || ");
 
   try {
     const resources = cloudinary.v2.search
