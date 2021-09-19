@@ -2,7 +2,6 @@ import User from "../models/user.js";
 //post data (imgUrl, imgId) to the userSchema when the user buy an image.
 export const purchasedImgs = async (req, res) => {
   const { email, imgIdUrl } = req.body;
-  console.log({ imgIdUrl: imgIdUrl });
 
   try {
     await User.findOneAndUpdate({ email: email }, { $addToSet: { imgIdUrl: imgIdUrl } });

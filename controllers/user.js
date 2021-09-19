@@ -32,6 +32,7 @@ export const signin = async (req, res) => {
 
 export const signup = async (req, res) => {
   const { email, password, confirmPassword, firstName, lastName, name, googleId } = req.body;
+
   if (googleId) {
     try {
       const existingUser = await User.findOne({ email });

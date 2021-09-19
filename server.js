@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import imageRoutes from "./routes/images.js";
 import userRoutes from "./routes/users.js";
 import purchasedRoutes from "./routes/purchased.js";
+import contactusRoutes from "./routes/contactus.js";
+
 import config, { PORT } from "./config.js";
 
 const app = express();
@@ -20,6 +22,8 @@ app.get("/", (req, res) => {
 app.use("/images/", imageRoutes);
 app.use("/user", userRoutes);
 app.use("/purchased", purchasedRoutes);
+app.use("/contactus", contactusRoutes);
+
 // const PORT = process.env.PORT || 4000;
 mongoose
   .connect(config.CONNECTION_URL, {
