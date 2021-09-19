@@ -55,10 +55,10 @@ export const signup = async (req, res) => {
       const token = jwt.sign({ email: result.email, id: result._id }, config.SECRET, { expiresIn: "1h" });
 
       let mailDetails = {
-        from: "badarnakhaled@gmail.com",
+        from: "svglalineart@gmail.com",
         to: email,
-        subject: "Test mail",
-        html: `<a href="http://localhost:3000/verify/user/${token}">click here to verify your account</a><br><p>have a nice day</p>`,
+        subject: "SVGLA email account verification",
+        html: `<a href="http://svgla.com/verify/user/${token}">click here to verify your account</a><br><p>have a nice day</p>`,
       };
       mailTransporter.sendMail(mailDetails, function (err, data) {
         if (err) {
