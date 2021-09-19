@@ -6,8 +6,8 @@ import nodemailer from "nodemailer";
 let mailTransporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "badarnakhaled@gmail.com",
-    pass: "jbfklogxvyonemmg",
+    user: "svglineart@gmail.com",
+    pass: "nxgurkkwzhyxvazk",
   },
 });
 
