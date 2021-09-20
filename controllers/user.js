@@ -23,7 +23,7 @@ export const signin = async (req, res) => {
     if (!existingUser.isVarified) return res.status(404).json({ message: "User is not verified" });
     const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
     if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
-    const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, "test", { expiresIn: "1h" });
+    const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, config.SECRET, { expiresIn: "1h" });
     res.status(200).json({ result: existingUser, token });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong." });
@@ -38,7 +38,7 @@ export const signup = async (req, res) => {
       const existingUser = await User.findOne({ email });
       if (existingUser) return res.status(400).json({ message: "User already exist" });
       const result = await User.create({ email, name: `${name}`, isVarified: true });
-      const token = jwt.sign({ email: result.email, id: result._id }, "test", { expiresIn: "1h" });
+      const token = jwt.sign({ email: result.email, id: result._id }, config.SECRET, { expiresIn: "1h" });
 
       res.status(200).json({ result, token });
     } catch (error) {
@@ -58,8 +58,9 @@ export const signup = async (req, res) => {
         from: "svglalineart@gmail.com",
         to: email,
         subject: "SVGLA email account verification",
-        html: `<a href="https://svgla.com/verify/user/${token}">click here to verify your account</a><br><p>have a nice day</p>`,
+        html: `<a href="http://localhost:3000/verify/user/${token}">click here to verify your account</a><br><p>have a nice day</p>`,
       };
+      //localhost:3000 must be change to SVGLA.com ?
       mailTransporter.sendMail(mailDetails, function (err, data) {
         if (err) {
           console.log("Error Occurs");
@@ -79,7 +80,8 @@ export const verify = async (req, res) => {
   const { token } = req.body;
 
   try {
-    const decoded = jwt.verify(token, "test");
+    const decoded = jwt.verify(token, config.SECRET);
+
     let email = decoded.email;
 
     let user = await User.findOne({ email: email });
@@ -92,6 +94,7 @@ export const verify = async (req, res) => {
       return res.send("Verified");
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Something went wrong." });
   }
 };

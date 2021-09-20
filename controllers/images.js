@@ -4,7 +4,7 @@ const router = express.Router();
 
 export const getImages = async (req, res) => {
   try {
-    const { resources } = await cloudinary.v2.search.expression("folder:SVGLA").sort_by("public_id", "desc").max_results(42).execute();
+    const { resources } = await cloudinary.v2.search.expression("folder:SVGLA").sort_by("public_id", "desc").max_results(48).execute();
     const publicIds = resources.map((file) => file.public_id);
     const imgUrl = resources.map((file) => file.secure_url);
 
@@ -68,7 +68,7 @@ export const uploadImage = async (req, res) => {
     console.log(uploadedResponse);
     res.json({ msg: "yayayay" });
   } catch (error) {
-    console.log(error, "hhhh");
+    console.log(error);
     res.status(500).json({ err: "something went wrong" });
   }
 };
