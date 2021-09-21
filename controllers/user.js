@@ -58,7 +58,7 @@ export const signup = async (req, res) => {
         from: "svglalineart@gmail.com",
         to: email,
         subject: "SVGLA email account verification",
-        html: `<a href="http://svgla.com/verify/user/${token}">click here to verify your account</a><br><p>have a nice day</p>`,
+        html: `<a href="https://svgla.com/verify/user/${token}">click here to verify your account</a><br><p>have a nice day</p>`,
       };
       //localhost:3000 must be change to SVGLA.com ?
       mailTransporter.sendMail(mailDetails, function (err, data) {
