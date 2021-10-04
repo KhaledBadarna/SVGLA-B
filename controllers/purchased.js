@@ -20,6 +20,7 @@ export const getImages = async (req, res) => {
 
   try {
     await User.findOne({ email: email }, function (err, obj) {
+      console.log(obj.imgIdUrl);
       res.status(200).json(obj.imgIdUrl);
     });
   } catch (error) {
