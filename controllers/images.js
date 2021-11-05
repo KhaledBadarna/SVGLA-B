@@ -4,7 +4,7 @@ const router = express.Router();
 
 export const getImages = async (req, res) => {
   try {
-    const { resources } = await cloudinary.v2.search.expression("folder:SVGLA").sort_by("public_id", "desc").max_results(200).execute();
+    const { resources } = await cloudinary.v2.search.expression("folder:SVGLA").sort_by("public_id", "desc").max_results(1000).execute();
     const publicIds = resources.map((file) => file.public_id);
     const imgUrl = resources.map((file) => file.secure_url);
 
